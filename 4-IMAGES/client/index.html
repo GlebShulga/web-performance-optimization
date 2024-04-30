@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>Hometask 4</title>
@@ -10,16 +11,60 @@
         }
     </style>
 </head>
+
 <body>
-    <img src="http://localhost:8000/image1" alt=''/>
-    <img src="http://localhost:8000/image2" alt=''/>
-    <img src="http://localhost:8000/image3" alt=''/>
-    <img src="http://localhost:8000/image4" alt=''/>
-    <img src="http://localhost:8000/image5" alt=''/>
-    <img src="http://localhost:8000/image6" alt=''/>
-    <img src="http://localhost:8000/image7" alt=''/>
-    <img src="http://localhost:8000/image8" alt=''/>
-    <img src="http://localhost:8000/image9" alt=''/>
-    <img src="http://localhost:8000/image10" alt=''/>
+    <div id="images"></div>
+
+    <script>
+        const imageNames = ['image1', 'image2', 'image3', 'image4', 'image5', 'image6', 'image7', 'image8', 'image9', 'image10'];
+        const resolutions = [320, 768, 1024, 1920];
+        const formats = ['webp', 'jpeg'];
+
+        const imagesDiv = document.getElementById('images');
+
+        imageNames.forEach(name => {
+            const picture = document.createElement('picture');
+
+            resolutions.forEach((res, index) => {
+                formats.forEach(format => {
+                    const source = document.createElement('source');
+                    source.media = `(max-width: ${res}px)`;
+                    source.srcset = `http://localhost:8000/${name}?format=${format}&width=${res}`;
+                    source.type = `image/${format}`;
+                    picture.appendChild(source);
+                });
+            });
+
+            const img = document.createElement('img');
+            img.src = `http://localhost:8000/${name}?format=jpeg&width=1920`;
+            img.alt = '';
+            img.loading = 'lazy';
+            picture.appendChild(img);
+
+            imagesDiv.appendChild(picture);
+        });
+
+        if ('loading' in HTMLImageElement.prototype) {
+            console.log('Browser supports native lazy loading')
+        } else {
+            const lazyImages = [].slice.call(document.querySelectorAll("img.lazy"));
+
+            let lazyImageObserver = new IntersectionObserver(function (entries, observer) {
+                entries.forEach(function (entry) {
+                    if (entry.isIntersecting) {
+                        let lazyImage = entry.target;
+                        lazyImage.src = lazyImage.dataset.src;
+                        lazyImage.classList.remove("lazy");
+                        lazyImageObserver.unobserve(lazyImage);
+                    }
+                });
+            });
+
+            lazyImages.forEach(function (lazyImage) {
+                lazyImageObserver.observe(lazyImage);
+            });
+        }
+    </script>
 </body>
+
 </html>
