@@ -1,0 +1,8 @@
+File: C:\Users\Gleb_Shulga\Documents\Apps\web-performance-optimization-hometasks\3-LINK-AND-SCRIPT-TAG-ATTRIBUTES\part-1\dist\bundle.js
+Size: 1329 bytes
+
+File: C:\Users\Gleb_Shulga\Documents\Apps\web-performance-optimization-hometasks\3-LINK-AND-SCRIPT-TAG-ATTRIBUTES\part-2\dist\main.bundle.js
+Size: 1331 bytes
+
+File: C:\Users\Gleb_Shulga\Documents\Apps\web-performance-optimization-hometasks\3-LINK-AND-SCRIPT-TAG-ATTRIBUTES\part-2\dist\main.mjs
+Size: 1331 bytes
