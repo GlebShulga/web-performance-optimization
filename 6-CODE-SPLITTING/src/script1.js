@@ -1,8 +1,8 @@
-import * as _ from 'lodash';
+import sum from "lodash/sum";
 
 const a = 10;
 const b = 2;
 
-const result = _.sum(a, b);
+const result = sum(a, b);
 
-console.log(`${a} + ${b} = ${result}`)
+console.log(`${a} + ${b} = ${result}`);

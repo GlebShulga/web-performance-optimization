@@ -1,8 +1,8 @@
-import * as _ from 'lodash';
+import multiply from "lodash/multiply";
 
 const a = 20;
 const b = 5;
 
-const result = _.multiply(a, b);
+const result = multiply(a, b);
 
-console.log(`${a} * ${b} = ${result}`)
+console.log(`${a} * ${b} = ${result}`);
