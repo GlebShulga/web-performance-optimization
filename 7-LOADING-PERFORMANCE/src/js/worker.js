@@ -1,7 +1,12 @@
-import { getSpentTime } from './common';
+import { getSpentTime } from "./common";
 
-// Implement onmessage event handler of service worker here
-// Since we decided to send 'start' message in './index.js' file here we should check
-// that event contains this message first. Then if message matches - we should count
-// spent time using getSpentTime function and send it back using postMessage method
-// of service worker
+self.onmessage = (event) => {
+  console.log("Service worker event:", event);
+  if (event.data === "start") {
+    const spentTime = getSpentTime();
+    console.log("Service worker calculated spent time:", spentTime);
+    self.postMessage({ type: "response", data: spentTime });
+  } else {
+    console.warn("Service worker received unexpected message:", event.data);
+  }
+};
