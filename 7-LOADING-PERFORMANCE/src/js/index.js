@@ -30,20 +30,20 @@ async function withWebWorker() {
   if ("serviceWorker" in navigator) {
     try {
       const registration = await navigator.serviceWorker.register(
-        "./worker.js"
+        "./worker.js",
+        { type: "module" }
       );
       console.log("Service worker registered:", registration);
 
       if (registration.active) {
-        registration.active.addEventListener("message", (e) => {
+        const messageChannel = new MessageChannel();
+        messageChannel.port1.onmessage = (e) => {
           if (e.data.type === "response") {
-            console.log("Message received from service worker:", e.data.data);
+            afterStop(e.data.data, true);
           }
-          console.log("Service worker event:", e);
-          afterStop(e.data, true);
-        });
+        };
 
-        registration.active.postMessage("start");
+        registration.active.postMessage("start", [messageChannel.port2]);
       } else {
         console.log("No active service worker found. Reloading the page.");
         window.location.reload();
